@@ -19,11 +19,18 @@ $ bundle install
 ```bash
 $ bundle exec puma -C config/puma.rb
 
+# http://locahost:101001
 # tenant: test
 # username: tester
 # password: testing
 
 # storage token: tk_tester
+```
+
+## Development
+```bash
+$ bundle install
+$ bundle exec rerun -- puma -C config/puma.rb
 ```
 
 ## License

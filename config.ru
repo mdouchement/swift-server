@@ -1,10 +1,10 @@
-$:.unshift File.expand_path('../', __FILE__)
+$LOAD_PATH.unshift File.expand_path('../', __FILE__)
 require 'rubygems'
 require 'sinatra'
 require 'json'
 require 'supermodel'
 require 'app'
-Dir[File.join('{controllers,models}', '**', '*.rb')].each { |f| require f }
+Dir[File.join('{controllers,models}', '**', '*.rb')].sort.each { |f| require f }
 
 use Rack::Logger
 
@@ -17,8 +17,8 @@ end
 SuperModel::Marshal.path = 'dump.db'
 SuperModel::Marshal.load
 
-at_exit {
+at_exit do
   SuperModel::Marshal.dump
-}
+end
 
 run Sinatra::Application
