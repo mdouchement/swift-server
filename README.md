@@ -17,7 +17,7 @@ $ bundle install
 
 ## Running
 ```bash
-$ bundle exec puma -C config/puma.rb
+$ bundle exec unicorn -p 101001 -c config/unicorn.rb
 
 # http://locahost:101001
 # tenant: test
@@ -30,7 +30,7 @@ $ bundle exec puma -C config/puma.rb
 ## Development
 ```bash
 $ bundle install
-$ bundle exec rerun -- puma -C config/puma.rb
+$ bundle exec rerun -- rackup -p 101001
 ```
 
 ## License
