@@ -30,7 +30,7 @@ $ bundle exec unicorn -p 101001 -c config/unicorn.rb
 ## Development
 ```bash
 $ bundle install
-$ bundle exec rerun -- rackup -p 101001
+$ bundle exec rerun -b -- rackup -p 101001
 ```
 
 ## License

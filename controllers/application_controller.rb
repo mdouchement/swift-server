@@ -7,4 +7,11 @@ class ApplicationController
     @req_headers = req_headers
     @resp_headers = resp_headers
   end
+
+  private
+
+  # Convenient way to respect Rack::Lint rules
+  def safe_append_header(key, value)
+    resp_headers[key] = value.to_s
+  end
 end

@@ -8,11 +8,11 @@ class SwObjectsController < ApplicationController
       app.status 200
       case json_params[:method]
       when :head
-        resp_headers['Content-Type'] = sw_object.content_type
-        resp_headers['Content-Length'] = sw_object.size
-        resp_headers['X-Timestamp'] = sw_object.created_at.to_i
-        resp_headers['ETag'] = sw_object.hash
-        resp_headers['Date'] = Time.now
+        safe_append_header('Content-Type', sw_object.content_type)
+        safe_append_header('Content-Length', sw_object.size)
+        safe_append_header('X-Timestamp', sw_object.created_at.to_i)
+        safe_append_header('ETag', sw_object.hash)
+        safe_append_header('Date', Time.now)
       when :get
         app.send_file sw_object.file_path,
           type: sw_object.content_type,
@@ -62,8 +62,8 @@ class SwObjectsController < ApplicationController
       md5: Digest::MD5.file(file_path).hexdigest
     )
 
-    resp_headers['X-Timestamp'] = sw_object.created_at.to_i
-    resp_headers['Date'] = Time.now
+    safe_append_header('X-Timestamp', sw_object.created_at.to_i)
+    safe_append_header('Date', Time.now)
     app.status 201
   end
 end
