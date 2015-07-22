@@ -19,7 +19,7 @@ $ bundle install
 ```bash
 $ bundle exec unicorn -p 101001 -c config/unicorn.rb
 
-# http://locahost:101001
+# http://localhost:101001
 # tenant: test
 # username: tester
 # password: testing
