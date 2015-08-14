@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sinatra', '>= 1.4.0'
   spec.add_dependency 'unicorn'
   spec.add_dependency 'webrick'
-  spec.add_dependency 'supermodel', '>= 0.1.6'
+  spec.add_dependency 'worsemodel', '>= 0.1.7'
   spec.add_dependency 'json'
   spec.add_dependency 'dante'
 
