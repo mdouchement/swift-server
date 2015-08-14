@@ -1,11 +1,9 @@
 source 'https://rubygems.org'
-gem 'sinatra', '1.4.6'
-gem 'unicorn', group: :production
-gem 'json', '~> 1.8.3'
-gem 'supermodel', '~> 0.1.6'
-gem 'rerun', '~> 0.10.0'
+
+# Specify your gem's dependencies in kml_agent.gemspec
+gemspec
 
 group :development, :test do
+  gem 'rerun', '~> 0.10.0'
   gem 'pry'
-  gem 'webrick'
 end
