@@ -10,7 +10,7 @@ module SwiftServer
       Dante::Runner.new('swift-server')
         .execute(daemonize: true, pid_path: @swift_pid, log_path: @swift_log) do |opts|
         app = Rack::Builder.new do
-          eval File.read(File.join(SwiftServer::Server.pwd, 'config.ru'))
+          eval File.read(File.join(SwiftServer::Server.pwd, '..', '..', 'config.ru'))
         end
         Rack::Server.start(app: app, Port: 101001)
       end

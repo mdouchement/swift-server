@@ -4,7 +4,9 @@ require 'sinatra'
 require 'json'
 require 'supermodel'
 require 'app'
-Dir[File.join('{controllers,models}', '**', '*.rb')].sort.each { |f| require f }
+File.dirname(File.expand_path(__FILE__)).tap do |pwd|
+  Dir[File.join(pwd, '{controllers,models}', '**', '*.rb')].sort.each { |f| require f }
+end
 
 use Rack::Logger
 
