@@ -12,7 +12,7 @@ module SwiftServer
         app = Rack::Builder.new do
           eval File.read(File.join(SwiftServer::Server.pwd, '..', '..', 'config.ru'))
         end
-        Rack::Server.start(app: app, Port: 101001)
+        Rack::Server.start(app: app, Port: 10101)
       end
     end
 

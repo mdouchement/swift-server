@@ -17,9 +17,9 @@ $ bundle install
 
 ## Running
 ```bash
-$ bundle exec unicorn -p 101001 -c config/unicorn.rb
+$ bundle exec unicorn -p 10101 -c config/unicorn.rb
 
-# http://localhost:101001
+# http://localhost:10101
 # tenant: test
 # username: tester
 # password: testing
@@ -30,7 +30,7 @@ $ bundle exec unicorn -p 101001 -c config/unicorn.rb
 ## Development
 ```bash
 $ bundle install
-$ bundle exec rerun -b -- rackup -p 101001
+$ bundle exec rerun -b -- rackup -p 10101
 ```
 
 ## License

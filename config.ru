@@ -3,8 +3,8 @@ require 'rubygems'
 require 'sinatra'
 require 'json'
 require 'supermodel'
-require 'app'
-File.dirname(File.expand_path(__FILE__)).tap do |pwd|
+Gem::Specification.find_by_name('swift_server').gem_dir.tap do |pwd|
+  require File.join(pwd, 'app')
   Dir[File.join(pwd, '{controllers,models}', '**', '*.rb')].sort.each { |f| require f }
 end
 

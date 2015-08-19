@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = 'swift_server'
-  spec.version       = '0.0.2'
+  spec.version       = '0.0.3'
   spec.authors       = ['mdouchement']
   spec.email         = ['marc.douchement@predicsis.com']
   spec.summary       = 'Swift Server'
@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sinatra', '>= 1.4.0'
   spec.add_dependency 'unicorn'
   spec.add_dependency 'webrick'
-  spec.add_dependency 'worsemodel', '>= 0.1.8'
+  spec.add_dependency 'worsemodel', '>= 0.1.9'
   spec.add_dependency 'json'
   spec.add_dependency 'dante'
 
