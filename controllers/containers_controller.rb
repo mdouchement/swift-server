@@ -1,12 +1,17 @@
 class ContainersController < ApplicationController
   def index
     app.status 200
-    Container.all.each_with_object([]) do |container, res|
-      res << {
-        name: container.name,
-        last_updated: container.updated_at
-      }
-    end.to_json
+    case req_headers[:accept]
+    when 'application/json'
+      JSON.pretty_generate(Container.all.each_with_object([]) do |container, res|
+        res << {
+          name: container.name,
+          last_updated: container.updated_at
+        }
+      end)
+    when 'text/plain'
+      Container.all.map(&:name).join("\n")
+    end
   end
 
   def show
@@ -47,7 +52,7 @@ class ContainersController < ApplicationController
     if container
       if container.sw_objects.count == 0
         app.status 204
-        container.destroy!
+        container.destroy
       else
         app.status 409
       end

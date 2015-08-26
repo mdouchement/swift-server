@@ -1,3 +1,7 @@
+require 'sinatra/verbs'
+
+Sinatra::Verbs.custom :copy
+
 before do
   content_type :json
   if (token = req_headers[:x_auth_token])
@@ -75,6 +79,13 @@ put '/v1/AUTH_tester/*' do |uri|
     logger.info 'sw_objects_controller#update'
     SwObjectsController.new(*args).update
   end
+end
+
+copy '/v1/AUTH_tester/*' do |uri|
+  json_params[:uri] = req_headers[:destination]
+  req_headers[:x_copy_from] = uri
+  logger.info 'sw_objects_controller#copy'
+  SwObjectsController.new(*args).copy
 end
 
 # Delete object

@@ -40,7 +40,7 @@ class SwObjectsController < ApplicationController
 
     if sw_object
       app.status 204
-      sw_object.destroy!
+      sw_object.destroy
     else
       app.status 404
     end
