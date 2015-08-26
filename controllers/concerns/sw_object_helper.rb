@@ -42,7 +42,7 @@ module SwObjectHelper
   end
 
   def path
-    @path ||= File.join('storage', *json_params[:uri].split('/')[0..-2]).tap do |p|
+    File.join('storage', *json_params[:uri].split('/')[0..-2]).tap do |p|
       FileUtils.mkdir_p p
     end
   end
@@ -52,7 +52,7 @@ module SwObjectHelper
   end
 
   def copied_path
-    @path ||= File.join('storage', *req_headers[:x_copy_from].split('/')[0..-2]).tap do |p|
+    File.join('storage', *req_headers[:x_copy_from].split('/')[0..-2]).tap do |p|
       FileUtils.mkdir_p p
     end
   end
