@@ -1,6 +1,7 @@
 $LOAD_PATH.unshift File.expand_path('../', __FILE__)
 require 'rubygems'
 require 'sinatra'
+require 'sinatra/verbs'
 require 'json'
 require 'supermodel'
 Gem::Specification.find_by_name('swift_server').gem_dir.tap do |pwd|

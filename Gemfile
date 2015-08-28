@@ -6,5 +6,4 @@ gemspec
 group :development, :test do
   gem 'rerun', '~> 0.10.0'
   gem 'pry'
-  gem 'sinatra-verbs'
 end
