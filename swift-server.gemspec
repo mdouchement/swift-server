@@ -20,6 +20,7 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = '>= 2.0'
 
   spec.add_dependency 'sinatra', '>= 1.4.0'
+  spec.add_dependency 'sinatra-verbs'
   spec.add_dependency 'unicorn'
   spec.add_dependency 'webrick'
   spec.add_dependency 'worsemodel', '>= 0.1.9'

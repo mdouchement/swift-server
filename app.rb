@@ -1,5 +1,3 @@
-require 'sinatra/verbs'
-
 Sinatra::Verbs.custom :copy
 
 before do
