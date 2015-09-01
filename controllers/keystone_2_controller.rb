@@ -1,4 +1,6 @@
 class Keystone2Controller < ApplicationController
+  include CredentialsHelper
+
   def create
     if authorize
       app.status 201
@@ -44,15 +46,15 @@ class Keystone2Controller < ApplicationController
   end
 
   def authorize_password(p)
-    tenant == 'test' && p[:username] == 'tester' && p[:password] == 'testing'
+    valid_tenant?(tenant) && valid_username?(p[:username]) && valid_password?(p[:password])
   end
 
   def authorize_rax_kskey(p)
-    tenant == 'test' && p[:username] == 'tester' && p[:apiKey] == 'testing'
+    valid_tenant?(tenant) && valid_username?(p[:username]) && valid_password?(p[:apiKey])
   end
 
   def authorize_api(p)
-    tenant == 'test' && p[:accessKey] == 'tester' && p[:secretKey] == 'testing'
+    valid_tenant?(tenant) && valid_username?(p[:username]) && valid_password?(p[:secretKey])
   end
 
   def tenant
