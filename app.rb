@@ -69,16 +69,19 @@ end
 # Create or replace object
 # Copy object
 put '/v1/AUTH_tester/*' do |uri|
-  json_params[:uri] = uri
   if req_headers[:x_copy_from]
     logger.info 'sw_objects_controller#copy'
+    json_params[:uri] = uri
     SwObjectsController.new(*args).copy
   else
     logger.info 'sw_objects_controller#update'
+    req_headers[:x_write_object] = true
+    json_params[:uri] = uri
     SwObjectsController.new(*args).update
   end
 end
 
+# Copy object
 copy '/v1/AUTH_tester/*' do |uri|
   json_params[:uri] = req_headers[:destination]
   req_headers[:x_copy_from] = uri
@@ -125,7 +128,7 @@ end
 #
 
 def json_params
-  @json_params ||= if request.env['CONTENT_TYPE'] == 'application/json'
+  @json_params ||= if !req_headers[:x_write_object] && request.env['CONTENT_TYPE'] == 'application/json'
                      JSON.parse(request.body.read, symbolize_names: true) || {}
                    else
                      {}

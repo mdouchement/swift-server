@@ -5,6 +5,7 @@ PATH
       dante
       json
       sinatra (>= 1.4.0)
+      sinatra-verbs
       unicorn
       webrick
       worsemodel (>= 0.1.9)
@@ -81,5 +82,7 @@ DEPENDENCIES
   bundler (~> 1.6)
   pry
   rerun (~> 0.10.0)
-  sinatra-verbs
   swift_server!
+
+BUNDLED WITH
+   1.10.6
