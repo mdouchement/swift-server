@@ -1,4 +1,6 @@
 class ContainersController < ApplicationController
+  include ContainerHelper
+
   def index
     app.status 200
     case req_headers[:accept]
@@ -18,22 +20,15 @@ class ContainersController < ApplicationController
     container = Container.find_by_name(json_params[:container])
 
     if container
+      app.status 200
+      safe_append_header('Date', Time.now)
+      safe_append_header('X-Timestamp', container.created_at.to_i)
+      safe_append_header('X-Container-Object-Count', container.sw_objects.count)
       case json_params[:method]
       when :head
       when :get
-        container.sw_objects.each_with_object([]) do |obj, res|
-          res << {
-            content_type: obj.content_type,
-            bytes: obj.size,
-            last_modified: obj.updated_at,
-            hash: obj.md5
-          }
-        end.to_json
+        list_objects(container, app.params[:prefix].to_s, req_headers[:accept])
       end
-      safe_append_header('X-Container-Object-Count', container.sw_objects.count)
-      safe_append_header('X-Timestamp', container.created_at.to_i)
-      safe_append_header('Date', Time.now)
-      app.status 200
     else
       app.status 404
     end
