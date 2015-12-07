@@ -3,12 +3,27 @@ module SwObjectHelper
     File.open(file_path, 'w') do |file|
       file << io.read
     end
-    "storage/#{json_params[:uri]}"
   end
 
-  def copy_file
-    FileUtils.cp(copied_file_path, file_path)
-    "storage/#{json_params[:uri]}"
+  def copy_file(copy_object)
+    FileUtils.cp(copy_object.file_path, file_path)
+  end
+
+  def create_manifest(manifest)
+    Dir.entries(File.join('storage', json_params[:x_object_manifest])).sort.each do |file|
+      next if %w(. ..).include? file
+      SwObject.find_by_uri(json_params[:x_object_manifest] + file).update_attributes(sw_manifest: manifest)
+    end
+  end
+
+  def manifest_file(manifest)
+    file = Tempfile.new(manifest.created_at.to_s)
+    manifest.sw_objects.each do |o|
+      file << File.read(o.file_path)
+    end
+    yield(file)
+    file.close
+    file.unlink
   end
 
   def key
