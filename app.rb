@@ -73,6 +73,11 @@ put '/v1/AUTH_tester/*' do |uri|
     logger.info 'sw_objects_controller#copy'
     json_params[:uri] = uri
     SwObjectsController.new(*args).copy
+  elsif req_headers[:x_object_manifest]
+    logger.info 'sw_objects_controller#manifest'
+    json_params[:uri] = uri
+    json_params[:x_object_manifest] = req_headers[:x_object_manifest]
+    SwObjectsController.new(*args).manifest
   else
     logger.info 'sw_objects_controller#update'
     req_headers[:x_write_object] = true
