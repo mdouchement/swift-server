@@ -7,7 +7,8 @@ class Keystone2Controller < ApplicationController
       {
         access: {
           token: {
-            id: 'tk_tester'
+            id: 'tk_tester',
+            expires: (Time.now.utc + 1.hour).to_s
           },
           serviceCatalog: [
             {
