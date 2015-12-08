@@ -41,7 +41,7 @@ class SwObjectsController < ApplicationController
   end
 
   def update
-    object_creation do |file_path|
+    object_creation do
       persist(app.request.body)
     end
   end
