@@ -18,6 +18,8 @@ module SwiftServer
 
     def stop
       Dante::Runner.new('swift-server').execute(kill: true, pid_path: @swift_pid)
+      FileUtils.rm @swift_pid
+      FileUtils.rm @swift_log
     end
 
     def init
