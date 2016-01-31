@@ -30,7 +30,7 @@ $ bundle exec unicorn -p 10101 -c config/unicorn.rb
 ## Development
 ```bash
 $ bundle install
-$ bundle exec rerun -b -- rackup -p 10101
+$ SWIFT_STORAGE_TENANT=test SWIFT_STORAGE_USERNAME=tester SWIFT_STORAGE_PASSWORD=testing bundle exec rerun -b -- rackup -p 10101
 ```
 
 ## License

@@ -2,6 +2,7 @@ module SwiftServer
   module Controllers
     class Keystone1Controller < ApplicationController
       include Concerns::CredentialsHelper
+      attr_accessor :tenant, :username
 
       def show
         if authorize
