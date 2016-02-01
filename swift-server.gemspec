@@ -22,7 +22,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sinatra', '>= 1.4.0'
   spec.add_dependency 'sinatra-verbs'
   spec.add_dependency 'unicorn'
-  spec.add_dependency 'worsemodel', '>= 0.1.9'
+  spec.add_dependency 'worsemodel', '>= 0.2.0'
   spec.add_dependency 'json'
   spec.add_dependency 'dante'
 

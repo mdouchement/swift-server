@@ -1,0 +1,18 @@
+machine:
+  ruby:
+    version: 2.2.4
+  services:
+    - docker
+  environment:
+    SWIFT_STORAGE_TENANT: test
+    SWIFT_STORAGE_USERNAME: tester
+    SWIFT_STORAGE_PASSWORD: testing
+
+dependencies:
+  post:
+    - bundle exec rackup -p 10101 -o 0.0.0.0:
+        background: true
+
+test:
+  override:
+    - bundle exec cucumber --format pretty
