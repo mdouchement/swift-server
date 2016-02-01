@@ -2,9 +2,9 @@ module SwiftServer
   module RouterHelper
     def json_params
       @json_params ||= if !req_headers[:x_write_object] && request.env['CONTENT_TYPE'] == 'application/json'
-                         JSON.parse(request.body.read, symbolize_names: true) || {}
+                         params.merge(JSON.parse(request.body.read, symbolize_names: true)) || params
                        else
-                         {}
+                         params
                        end
     end
 

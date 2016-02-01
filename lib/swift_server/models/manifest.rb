@@ -6,7 +6,7 @@ module SwiftServer
       include SuperModel::Marshal::Model
 
       belongs_to :container, foreign_key: :container_id, class_name: 'SwiftServer::Models::Container'
-      has_many :objects, foreign_key: :manifest_id, class_name: 'SwiftServer::Models::Object'
+      has_many :objects, foreign_key: :manifest_id, class_name: 'SwiftServer::Models::Object', dependent: :destroy
 
       attributes :uri
       attributes :key

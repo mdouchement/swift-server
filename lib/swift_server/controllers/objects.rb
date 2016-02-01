@@ -2,6 +2,7 @@ module SwiftServer
   module Controllers
     class Objects < ApplicationController
       include Concerns::ObjectHelper
+      include Concerns::CleanerManager
 
       def show
         object = Models::Object.find_by_uri(json_params[:uri])
@@ -31,7 +32,7 @@ module SwiftServer
             safe_append_header('ETag', manifest.hash)
             safe_append_header('Date', Time.now.getlocal)
           when :get
-            manifest_file(smanifest) do |file|
+            manifest_file(manifest) do |file|
               app.send_file file,
                 type: manifest.content_type,
                 filename: manifest.key.split('/').last
@@ -49,13 +50,16 @@ module SwiftServer
       end
 
       def copy
-        if copied_object = Models::Object.find_by_uri(req_headers[:x_copy_from])
+        if (copied_object = Models::Object.find_by_uri(req_headers[:x_copy_from]))
           object_creation do
             copy_file(copied_object)
           end
-        elsif copied_manifest = Models::Manifest.find_by_uri(req_headers[:x_copy_from])
+        elsif (copied_manifest = Models::Manifest.find_by_uri(req_headers[:x_copy_from]))
           manifest_creation do |manifest|
-            manifest.objects = copied_manifest.objects
+            manifest.update_attributes(objects: copied_manifest.objects,
+                                       md5: copied_manifest.md5,
+                                       size: copied_manifest.size,
+                                       content_type: copied_manifest.content_type)
           end
         else
           app.status 404
@@ -74,6 +78,7 @@ module SwiftServer
         if object
           app.status 204
           object.destroy
+          remove_empty_directories
         else
           app.status 404
         end
@@ -106,6 +111,10 @@ module SwiftServer
         manifest.update_attributes(container: container, key: key, content_type: req_headers[:content_type])
 
         yield(manifest)
+
+        manifest.update_attributes(size: manifest.objects.sum(&:size),
+                                   content_type: manifest.objects.last.content_type,
+                                   md5: SecureRandom.hex) unless manifest.size # Only when it is not a copied manifest
 
         safe_append_header('X-Timestamp', manifest.created_at.to_i)
         safe_append_header('Date', Time.now.getlocal)

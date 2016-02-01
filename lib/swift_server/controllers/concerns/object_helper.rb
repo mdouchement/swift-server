@@ -3,7 +3,7 @@ module SwiftServer
     module Concerns
       module ObjectHelper
         def persist(io)
-          File.open(file_path, 'w') do |file|
+          File.open(file_path, 'wb') do |file|
             file << io.read
           end
         end
@@ -24,6 +24,7 @@ module SwiftServer
           manifest.objects.each do |o|
             file << File.read(o.file_path)
           end
+          file.flush
           yield(file)
           file.close
           file.unlink
