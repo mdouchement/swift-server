@@ -1,4 +1,6 @@
 machine:
+  ruby:
+    version: 2.2.4
   services:
     - docker
   environment:
@@ -13,4 +15,4 @@ dependencies:
 
 test:
   override:
-    - bundle exec rake cucumber
+    - bundle exec cucumber --format pretty
