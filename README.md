@@ -1,5 +1,7 @@
 # Swift-server
 
+[![Circle CI](https://circleci.com/gh/mdouchement/swift-server.svg?style=shield)](https://circleci.com/gh/mdouchement/swift-server)
+
 **Only for development and test purpose.**
 
 Swift-server is a Sinatra server that responds to the same calls Openstack Swift responds to. It's a convenient way to use Swift out-of-the-box without any fancy dependencies and configuration.
