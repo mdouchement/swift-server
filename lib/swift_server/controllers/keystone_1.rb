@@ -1,6 +1,6 @@
 module SwiftServer
   module Controllers
-    class Keystone1Controller < ApplicationController
+    class Keystone1 < ApplicationController
       include Concerns::CredentialsHelper
       attr_accessor :tenant, :username
 

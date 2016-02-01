@@ -1,6 +1,6 @@
 module SwiftServer
   module Controllers
-    class Keystone2Controller < ApplicationController
+    class Keystone2 < ApplicationController
       include Concerns::CredentialsHelper
 
       def create

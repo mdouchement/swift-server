@@ -1,12 +1,12 @@
 module SwiftServer
-  module Controllers
+  module Models
     class Manifest < SuperModel::Base
       include SuperModel::RandomID
       include SuperModel::Timestamp::Model
       include SuperModel::Marshal::Model
 
-      belongs_to :container
-      has_many :objects
+      belongs_to :container, foreign_key: :container_id, class_name: 'SwiftServer::Models::Container'
+      has_many :objects, foreign_key: :manifest_id, class_name: 'SwiftServer::Models::Object'
 
       attributes :uri
       attributes :key

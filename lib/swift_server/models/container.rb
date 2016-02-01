@@ -5,7 +5,7 @@ module SwiftServer
       include SuperModel::Timestamp::Model
       include SuperModel::Marshal::Model
 
-      has_many :objects
+      has_many :objects, foreign_key: :container_id, class_name: 'SwiftServer::Models::Object'
 
       attributes :name
 

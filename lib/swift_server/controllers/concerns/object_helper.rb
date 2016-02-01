@@ -15,7 +15,7 @@ module SwiftServer
         def create_manifest(manifest)
           Dir.entries(File.join('storage', json_params[:x_object_manifest])).sort.each do |file|
             next if %w(. ..).include? file
-            SwObject.find_by_uri(json_params[:x_object_manifest] + file).update_attributes(manifest: manifest)
+            Models::Object.find_by_uri(json_params[:x_object_manifest] + file).update_attributes(manifest: manifest)
           end
         end
 
@@ -34,7 +34,7 @@ module SwiftServer
         end
 
         def container
-          @container ||= Container.find_by_name(container_name)
+          @container ||= Models::Container.find_by_name(container_name)
         end
 
         def container_name
@@ -46,7 +46,7 @@ module SwiftServer
         end
 
         def copied_from_container
-          @copied_from_container ||= Container.find_by_name(container_name)
+          @copied_from_container ||= Models::Container.find_by_name(container_name)
         end
 
         def copied_from_container_name

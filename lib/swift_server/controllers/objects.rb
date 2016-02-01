@@ -1,11 +1,11 @@
 module SwiftServer
   module Controllers
-    class ObjectsController < ApplicationController
+    class Objects < ApplicationController
       include Concerns::ObjectHelper
 
       def show
-        object = Object.find_by_uri(json_params[:uri])
-        manifest = Manifest.find_by_uri(json_params[:uri])
+        object = Models::Object.find_by_uri(json_params[:uri])
+        manifest = Models::Manifest.find_by_uri(json_params[:uri])
 
         if object
           app.status 200
@@ -49,11 +49,11 @@ module SwiftServer
       end
 
       def copy
-        if copied_object = Object.find_by_uri(req_headers[:x_copy_from])
+        if copied_object = Models::Object.find_by_uri(req_headers[:x_copy_from])
           object_creation do
             copy_file(copied_object)
           end
-        elsif copied_manifest = Manifest.find_by_uri(req_headers[:x_copy_from])
+        elsif copied_manifest = Models::Manifest.find_by_uri(req_headers[:x_copy_from])
           manifest_creation do |manifest|
             manifest.objects = copied_manifest.objects
           end
@@ -69,7 +69,7 @@ module SwiftServer
       end
 
       def destroy
-        object = Object.find_by_uri(json_params[:uri]) || Manifest.find_by_uri(json_params[:uri])
+        object = Models::Object.find_by_uri(json_params[:uri]) || Models::Manifest.find_by_uri(json_params[:uri])
 
         if object
           app.status 204
@@ -82,7 +82,7 @@ module SwiftServer
       private
 
       def object_creation
-        object = Object.find_or_create_by_uri(json_params[:uri])
+        object = Models::Object.find_or_create_by_uri(json_params[:uri])
 
         yield
         file_path = "storage/#{json_params[:uri]}"
@@ -102,7 +102,7 @@ module SwiftServer
       end
 
       def manifest_creation
-        manifest = Manifest.find_or_create_by_uri(json_params[:uri])
+        manifest = Models::Manifest.find_or_create_by_uri(json_params[:uri])
         manifest.update_attributes(container: container, key: key, content_type: req_headers[:content_type])
 
         yield(manifest)
