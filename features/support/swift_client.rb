@@ -12,7 +12,7 @@ class SwiftClient
     end
 
     def each_client
-      @clients.each do |client|
+      @clients.each do |_id, client|
         yield client
       end
     end
@@ -37,7 +37,7 @@ class SwiftClient
   end
 
   def upload(file)
-    object(*params).write(file, content_type: 'application/octet-stream')
+    create_object(*params).write(file, content_type: 'application/octet-stream')
   end
 
   def download(file)
@@ -55,25 +55,34 @@ class SwiftClient
     object(*params).exists?
   end
 
+  def create_object(container, object)
+    create_container(container).objects[object]
+  end
+
   def object(container, object)
     container(container).objects[object]
   end
 
   def create_container(container)
-    container(container).create
+    container(container).tap do |c|
+      c.create unless c.exists?
+    end
   end
 
   def container(container)
     swift.containers[container]
   end
 
-  def delete_objects(container, objects)
+  def delete_objects(container = nil, objects = nil)
+    container ||= @container_name
+    objects ||= [@object_name]
+
     c = container(container)
     objects.each { |o| c.objects[o].delete }
   end
 
   def swift
-    ::SwiftStorage::Service.new(
+    @swift ||= ::SwiftStorage::Service.new(
         tenant: ENV['SWIFT_STORAGE_TENANT'],
         username: ENV['SWIFT_STORAGE_USERNAME'],
         password: ENV['SWIFT_STORAGE_PASSWORD'],

@@ -21,6 +21,9 @@ class FileGenerator
 
       size_in_mb.times { file.puts SecureRandom.random_bytes(ONE_MEGABYTE) }
 
+      file.flush
+      file.rewind # Avoid MRI 2.3 bug?!
+
       yield file
     ensure
       file.close # Also delete file
@@ -31,6 +34,9 @@ class FileGenerator
       file = Tempfile.new('random_size_generated_lorem_file.raw', encoding: Encoding::UTF_8)
 
       size_in_mb.times { file.puts lorem }
+
+      file.flush
+      file.rewind # Avoid MRI 2.3 bug?!
 
       yield file
     ensure

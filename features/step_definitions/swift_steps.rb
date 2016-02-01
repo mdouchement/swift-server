@@ -21,7 +21,7 @@ end
 
 Then(/^I remove the object\(s\) for the next test$/) do
   SwiftClient.each_client do |client|
-    client.delete_object
+    client.delete_objects
   end
   SwiftClient.wipe
 end

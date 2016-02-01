@@ -19,8 +19,8 @@ module SwiftServer
 
       def authorize
         req_headers[:x_auth_user].split(':').tap do |v|
-          tenant = v.first
-          username = v.last
+          @tenant = v.first
+          @username = v.last
         end
 
         valid_tenant?(tenant) && valid_username?(username) && valid_password?(req_headers[:x_auth_key])
