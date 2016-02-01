@@ -4,6 +4,7 @@ use Rack::Logger
 
 helpers do
   def logger
+    request.logger.level = Logger::INFO
     request.logger
   end
 end

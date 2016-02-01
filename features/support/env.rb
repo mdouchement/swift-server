@@ -6,3 +6,5 @@ ENV['SWIFT_STORAGE_AUTH_VERSION'] = ['1.0', '2.0'].sample
 ENV['SWIFT_STORAGE_TENANT'] = 'test'
 ENV['SWIFT_STORAGE_USERNAME'] = 'tester'
 ENV['SWIFT_STORAGE_PASSWORD'] = 'testing'
+
+Thread.abort_on_exception = true
