@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    swift_server (0.0.3)
+    swift_server (1.0.0)
       dante
       json
       sinatra (>= 1.4.0)

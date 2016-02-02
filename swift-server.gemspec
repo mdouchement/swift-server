@@ -1,10 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
+require 'swift_server/version'
 
 Gem::Specification.new do |spec|
   spec.name          = 'swift_server'
-  spec.version       = '0.0.3'
+  spec.version       = SwiftServer::VERSION
   spec.authors       = ['mdouchement']
   spec.email         = ['marc.douchement@predicsis.com']
   spec.summary       = 'Swift Server'
