@@ -132,5 +132,18 @@ module SwiftServer
       logger.info 'keystone2_controller#create'
       Controllers::Keystone2.new(*args).create
     end
+
+    #
+    ##############
+    # KEYSTONE 3 #
+    ##############
+    #
+    # https://docs.openstack.org/api-ref/identity/v3/
+
+    # Authenticate
+    post '/v3/auth/tokens' do
+      logger.info 'keystone3_controller#create'
+      Controllers::Keystone3.new(*args).create
+    end
   end
 end

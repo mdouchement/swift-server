@@ -19,6 +19,7 @@ $ bundle install
 
 ## Running
 ```bash
+$ export WEB_CONCURRENCY=3
 $ bundle exec unicorn -p 10101 -c config/unicorn.rb
 
 # http://localhost:10101
@@ -32,7 +33,7 @@ $ bundle exec unicorn -p 10101 -c config/unicorn.rb
 ## Development
 ```bash
 $ bundle install
-$ SWIFT_STORAGE_TENANT=test SWIFT_STORAGE_USERNAME=tester SWIFT_STORAGE_PASSWORD=testing bundle exec rerun -b -- rackup -p 10101
+$ SWIFT_STORAGE_TENANT=test SWIFT_STORAGE_USERNAME=tester SWIFT_STORAGE_PASSWORD=testing bundle exec rerun -b -- rackup -o localhost -p 10101
 ```
 
 ## License

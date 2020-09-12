@@ -5,8 +5,8 @@ module SwiftServer
       include Concerns::CleanerManager
 
       def show
-        object = Models::Object.find_by_uri(json_params[:uri])
-        manifest = Models::Manifest.find_by_uri(json_params[:uri])
+        object = Models::object.find_by_uri(json_params[:uri])
+        manifest = Models::manifest.find_by_uri(json_params[:uri])
 
         if object
           app.status 200
@@ -50,16 +50,16 @@ module SwiftServer
       end
 
       def copy
-        if (copied_object = Models::Object.find_by_uri(req_headers[:x_copy_from]))
+        if (copied_object = Models::object.find_by_uri(req_headers[:x_copy_from]))
           object_creation do
             copy_file(copied_object)
           end
-        elsif (copied_manifest = Models::Manifest.find_by_uri(req_headers[:x_copy_from]))
+        elsif (copied_manifest = Models::manifest.find_by_uri(req_headers[:x_copy_from]))
           manifest_creation do |manifest|
-            manifest.update_attributes(objects: copied_manifest.objects,
-                                       md5: copied_manifest.md5,
-                                       size: copied_manifest.size,
-                                       content_type: copied_manifest.content_type)
+            manifest.update(objects: copied_manifest.objects,
+                            md5: copied_manifest.md5,
+                            size: copied_manifest.size,
+                            content_type: copied_manifest.content_type)
           end
         else
           app.status 404
@@ -73,7 +73,7 @@ module SwiftServer
       end
 
       def destroy
-        object = Models::Object.find_by_uri(json_params[:uri]) || Models::Manifest.find_by_uri(json_params[:uri])
+        object = Models::object.find_by_uri(json_params[:uri]) || Models::manifest.find_by_uri(json_params[:uri])
 
         if object
           app.status 204
@@ -87,15 +87,15 @@ module SwiftServer
       private
 
       def object_creation
-        object = Models::Object.find_or_create_by_uri(json_params[:uri])
+        object = Models::object.find_or_create_by_uri(json_params[:uri])
 
         yield
         file_path = "storage/#{json_params[:uri]}"
 
-        object.update_attributes(
+        object.update(
           container: container,
           key: key,
-          content_type: req_headers[:content_type],
+          content_type: req_headers[:content_type] || 'application/octet-stream',
           file_path: file_path,
           size: File.size(file_path),
           md5: Digest::MD5.file(file_path).hexdigest
@@ -107,14 +107,16 @@ module SwiftServer
       end
 
       def manifest_creation
-        manifest = Models::Manifest.find_or_create_by_uri(json_params[:uri])
-        manifest.update_attributes(container: container, key: key, content_type: req_headers[:content_type])
+        manifest = Models::manifest.find_or_create_by_uri(json_params[:uri])
+        manifest.update(container: container, key: key, content_type: req_headers[:content_type])
 
         yield(manifest)
 
-        manifest.update_attributes(size: manifest.objects.sum(&:size),
-                                   content_type: manifest.objects.last.content_type,
-                                   md5: SecureRandom.hex) unless manifest.size # Only when it is not a copied manifest
+        if manifest.size.nil? || manifest.size.zero? # Only when it is not a copied manifest
+          manifest.update(size: manifest.objects.sum(&:size),
+                          content_type: manifest.objects.last.content_type,
+                          md5: SecureRandom.hex)
+        end
 
         safe_append_header('X-Timestamp', manifest.created_at.to_i)
         safe_append_header('Date', Time.now.getlocal)

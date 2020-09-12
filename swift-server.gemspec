@@ -23,9 +23,10 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'sinatra', '>= 1.4.0'
   spec.add_dependency 'sinatra-verbs'
   spec.add_dependency 'unicorn'
-  spec.add_dependency 'worsemodel', '>= 0.2.0'
-  spec.add_dependency 'json'
+  spec.add_dependency 'activesupport', '~> 6.0'
+  spec.add_dependency 'rom', '~> 5.0'
+  spec.add_dependency 'json_pure'
   spec.add_dependency 'dante'
 
-  spec.add_development_dependency 'bundler', '~> 1.6'
+  spec.add_development_dependency 'bundler', '~> 2.1'
 end

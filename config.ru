@@ -9,11 +9,12 @@ helpers do
   end
 end
 
-SuperModel::Marshal.path = 'dump.db'
-SuperModel::Marshal.load
+## TODO: rom-json
+# SuperModel::Marshal.path = 'dump.db'
+# SuperModel::Marshal.load
 
-at_exit do
-  SuperModel::Marshal.dump
-end
+# at_exit do
+#   SuperModel::Marshal.dump
+# end
 
 run SwiftServer::Router

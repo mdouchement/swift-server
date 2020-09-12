@@ -6,7 +6,7 @@ module SwiftServer
       def create
         if authorize
           app.status 201
-          {
+          JSON.pretty_generate(
             access: {
               token: {
                 id: 'tk_tester',
@@ -18,7 +18,7 @@ module SwiftServer
                   name: 'swift',
                   endpoints: [
                     {
-                        adminURL: "http://23.253.72.207:8080",
+                        adminURL: "http://localhost:60080",
                         region: 'ShangriLa',
                         internalURL: app.url('/v1/AUTH_tester'),
                         id: 'trololo_id',
@@ -29,7 +29,7 @@ module SwiftServer
                 }
               ]
             }
-          }.to_json
+          )
         else
           app.status 401
         end

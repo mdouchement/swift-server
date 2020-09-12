@@ -1,4 +1,4 @@
-worker_processes Integer(ENV["WEB_CONCURRENCY"] || 3)
+worker_processes Integer(ENV["WEB_CONCURRENCY"] || 1)
 timeout 15
 preload_app true
 
@@ -8,8 +8,8 @@ before_fork do |server, worker|
     Process.kill 'QUIT', Process.pid
   end
 
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.connection.disconnect!
+  # defined?(ActiveRecord::Base) and
+  #   ActiveRecord::Base.connection.disconnect!
 end
 
 after_fork do |server, worker|
@@ -17,7 +17,7 @@ after_fork do |server, worker|
     puts 'Unicorn worker intercepting TERM and doing nothing. Wait for master to send QUIT'
   end
 
-  defined?(ActiveRecord::Base) and
-    ActiveRecord::Base.establish_connection
+  # defined?(ActiveRecord::Base) and
+  #   ActiveRecord::Base.establish_connection
 end
 
