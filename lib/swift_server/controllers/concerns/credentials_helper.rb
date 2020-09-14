@@ -2,6 +2,10 @@ module SwiftServer
   module Controllers
     module Concerns
       module CredentialsHelper
+        def valid_domain?(domain)
+          domain == expected_domain
+        end
+
         def valid_tenant?(tenant)
           tenant == expected_tenant
         end
@@ -16,6 +20,10 @@ module SwiftServer
 
         def expected_tenant
           env(:swift_storage_tenant) || 'test'
+        end
+
+        def expected_domain
+          env(:swift_storage_domain) || 'Default'
         end
 
         def expected_username

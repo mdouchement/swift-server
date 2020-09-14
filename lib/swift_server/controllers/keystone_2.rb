@@ -18,7 +18,7 @@ module SwiftServer
                   name: 'swift',
                   endpoints: [
                     {
-                        adminURL: "http://localhost:60080",
+                        adminURL: 'http://localhost:60080',
                         region: 'ShangriLa',
                         internalURL: app.url('/v1/AUTH_tester'),
                         id: 'trololo_id',

@@ -27,7 +27,23 @@ $ bundle exec unicorn -p 10101 -c config/unicorn.rb
 # username: tester
 # password: testing
 
+# http://localhost:10101/v3
+# tenant: test
+# domain: Default
+# region: RegionOne
+# name: tester
+# password: testing
+
 # storage token: tk_tester
+```
+
+Environment variables:
+```
+WEB_CONCURRENCY
+SWIFT_STORAGE_TENANT
+SWIFT_STORAGE_DOMAIN
+SWIFT_STORAGE_USERNAME
+SWIFT_STORAGE_PASSWORD
 ```
 
 ## Development
