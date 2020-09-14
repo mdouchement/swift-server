@@ -1,0 +1,16 @@
+version: '3.7'
+
+services:
+  swift:
+    image: mdouchement/swift-server
+    restart: always
+    ports:
+      - 10101:10101
+    volumes:
+      - ./storage:/storage
+    environment:
+      WEB_CONCURRENCY: 2
+      SWIFT_STORAGE_TENANT: test
+      SWIFT_STORAGE_DOMAIN: Default
+      SWIFT_STORAGE_USERNAME: tester
+      SWIFT_STORAGE_PASSWORD: testing

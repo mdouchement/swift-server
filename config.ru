@@ -9,9 +9,9 @@ helpers do
   end
 end
 
-SwiftServer::Models::load("dump.db.json")
+SwiftServer::Models::load("storage/dump.db.json")
 at_exit do
-  SwiftServer::Models::backup("dump.db.json")
+  SwiftServer::Models::backup("storage/dump.db.json")
 end
 
 run SwiftServer::Router

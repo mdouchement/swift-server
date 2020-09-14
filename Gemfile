@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-# gem 'worsemodel', path: '/Users/fragan/workspaces/ruby/swift/supermodel'
-
 group :development, :test do
   gem 'rerun', '~> 0.13.0'
   gem 'pry'
