@@ -27,5 +27,26 @@ module SwiftServer
         config.register_relation(Models::Manifests)
       end
     end
+
+    def load(filename)
+      return unless File.file?(filename)
+      payload = File.read(filename)
+      return if payload.empty?
+      JSON.parse(File.read(filename)).each do |k, v|
+        v.each { |relation| database.relations[k.to_sym].insert(relation.deep_symbolize_keys) }
+      end
+    end
+
+    def backup(filename)
+      File.open(filename, 'w') do |f|
+        f << JSON.pretty_generate(
+          {}.tap do |payload|
+            database.gateways[:default].connection.data.each do |k, v|
+              payload[k] = v.data
+            end
+          end
+        )
+      end
+    end
   end
 end

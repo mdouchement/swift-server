@@ -11,6 +11,7 @@
 /db/*.sqlite3
 /db/*.sqlite3-journal
 *.db
+*.db.json
 
 # Ignore all logfiles and tempfiles.
 /log/*.log

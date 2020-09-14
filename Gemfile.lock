@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    swift_server (1.0.0)
+    swift_server (1.1.0)
       activesupport (~> 6.0)
       dante
       json_pure

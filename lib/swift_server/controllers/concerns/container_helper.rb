@@ -2,6 +2,7 @@ module SwiftServer
   module Controllers
     module Concerns
       module ContainerHelper
+        # TODO: should include manifests instead of chunks (object parts)
         def list_objects(container, prefix, content_type)
           content_type ||= 'application/json'
 
