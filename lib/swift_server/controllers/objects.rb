@@ -92,15 +92,17 @@ module SwiftServer
         yield
         file_path = "storage/#{json_params[:uri]}"
 
+        checksum = Digest::MD5.file(file_path).hexdigest
         object.update(
           container: container,
           key: key,
           content_type: req_headers[:content_type] || 'application/octet-stream',
           file_path: file_path,
           size: File.size(file_path),
-          md5: Digest::MD5.file(file_path).hexdigest
+          md5: checksum
         )
 
+        safe_append_header('Etag', checksum)
         safe_append_header('X-Timestamp', object.created_at.to_i)
         safe_append_header('Date', Time.now.getlocal)
         app.status 201
