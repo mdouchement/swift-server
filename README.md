@@ -9,7 +9,7 @@ Swift-server is a Sinatra server that responds to the same calls Openstack Swift
 Swift-server doesn't support all of the Swift command set, but the basic ones like upload, download, list, copy, authentication, and make containers are supported. More coming soon™. See file [app.rb](https://github.com/mdouchement/swift-server/blob/master/app.rb) for supported commands.
 
 ## Requirements
-- MRI (developmed on 2.2.2)
+- MRI (developmed on 2.7.1)
 - bundler
 
 ## Installing
