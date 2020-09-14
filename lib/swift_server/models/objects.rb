@@ -70,18 +70,7 @@ module SwiftServer
         Models::object.command(:create, result: :one).call(params)
       end
 
-      # include SuperModel::RandomID
-      # include SuperModel::Timestamp::Model
-      # include SuperModel::Marshal::Model
-
-      # before_destroy do
-      #   next unless file_path
-      #   File.unlink(file_path) if File.file?(file_path) # Remove the underlying file
-      # end
-
-      # belongs_to :container, foreign_key: :container_id, class_name: 'SwiftServer::Models::Container'
-      # belongs_to :manifest, foreign_key: :manifest_id, class_name: 'SwiftServer::Models::Manifest'
-
+      # https://github.com/dry-rb/dry-validation
       # validates_presence_of :uri
       # validates_uniqueness_of :uri
     end

@@ -25,16 +25,6 @@ module SwiftServer
         config.register_relation(Models::Containers)
         config.register_relation(Models::Objects)
         config.register_relation(Models::Manifests)
-
-        # %i(containers objects manifests).each do |rel|
-        #   config.commands(rel) do
-        #     define(:create) do
-        #       result :one
-        #     end
-        #     define(:update)
-        #     define(:delete)
-        #  end
-        # end
       end
     end
   end

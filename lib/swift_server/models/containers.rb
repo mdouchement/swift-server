@@ -48,10 +48,6 @@ module SwiftServer
         Models::container.command(:create, result: :one).call(name: name)
       end
 
-      # has_many :objects, foreign_key: :container_id, class_name: 'SwiftServer::Models::Object'
-
-      # attributes :name
-
       # https://github.com/dry-rb/dry-validation
       # validates_presence_of :name
     end

@@ -76,6 +76,7 @@ module SwiftServer
         command(:update).call(params)
       end
 
+      # https://github.com/dry-rb/dry-validation
       # validates_presence_of :uri
       # validates_uniqueness_of :uri
     end
