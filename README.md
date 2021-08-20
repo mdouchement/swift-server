@@ -4,6 +4,8 @@
 
 Use https://github.com/mdouchement/openstackswift instead.
 
+---------------
+
 **Only for development and test purpose.**
 
 Swift-server is a Sinatra server that responds to the same calls Openstack Swift responds to. It's a convenient way to use Swift out-of-the-box without any fancy dependencies and configuration.
