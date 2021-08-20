@@ -1,6 +1,8 @@
 # Swift-server
 
-[![Circle CI](https://circleci.com/gh/mdouchement/swift-server.svg?style=shield)](https://circleci.com/gh/mdouchement/swift-server)
+## Deprecated
+
+Use https://github.com/mdouchement/openstackswift instead.
 
 **Only for development and test purpose.**
 
